@@ -2,4 +2,12 @@
 
 {% block content %}
 <h1>Главная страница</h1>
+
+{% for post in posts %}
+    <p><b>{{ post.author }}</b></p>
+    <p>{{ post.title }}</p>
+    <p>{{ post.text }}</p>
+    <p><i>{{ post.created_at }}</i></p>
+{% endfor %}
+
 {% endblock content %}
