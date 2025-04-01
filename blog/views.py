@@ -30,3 +30,8 @@ def add_post(request):
             post.author = post_form.cleaned_data['author']
             post.save()
             return index(request)
+
+def read_post(request, pk):
+    post = Post.objects.get(pk=pk)
+    context = {"title": "Информация о посте", "post": post}
+    return render(request, template_name="blog/post_detail.html", context=context)

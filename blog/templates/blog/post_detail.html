@@ -1,0 +1,11 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+<h3>Информация о посте № {{ post.pk }}</h3>
+<hr>
+<b>{{ post.author }}</b>
+<hr4>{{ post.title }}</hr4>
+{{ post.text }}
+<p><i>{{ post.created_at }}</i></p>
+
+{% endblock content %}
