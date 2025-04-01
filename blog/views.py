@@ -16,6 +16,17 @@ def about(request):
     return HttpResponse('<h2>О сайте</h2>')
 
 def add_post(request):
-    post_form = PostForm()
-    context = {'form': post_form}
-    return render(request, template_name='blog/post_add.html', context=context)
+    if request.method == "GET":
+        post_form = PostForm()
+        context = {'form': post_form}
+        return render(request, template_name='blog/post_add.html', context=context)
+
+    if request.method == "POST":
+        post_form = PostForm(data=request.POST)
+        if post_form.is_valid():
+            post = Post()
+            post.title = post_form.cleaned_data['title']
+            post.text = post_form.cleaned_data['text']
+            post.author = post_form.cleaned_data['author']
+            post.save()
+            return index(request)
