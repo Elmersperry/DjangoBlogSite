@@ -15,7 +15,7 @@
         <p><img src="{% static 'img/no_image.jpeg' %}" width = 200px, height="auto"></p>
     {% endif %}
     </div>
-    <div class="post-title>"><h4><a href="{% url 'blog:read_post' pk=post.pk %}">{{ post.title }}</a></h4></div>
+    <div class="post-title>"><h4><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h4></div>
     <div class="post-text"><p>{{ post.text }}</p></div>
     <div class="post-created-at"><p><i>{{ post.created_at }}</i></p></div>
 {% endfor %}

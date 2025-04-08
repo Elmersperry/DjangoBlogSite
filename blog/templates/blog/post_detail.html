@@ -1,6 +1,7 @@
 {% extends 'blog/base.html' %}
 {% load static %}
 {% block content %}
+
 <h3>Информация о посте № {{ post.pk }}</h3>
 <hr>
 <b>{{ post.author }}</b>
@@ -11,7 +12,20 @@
 {% else %}
     <p><img src="{% static 'img/no_image.jpeg' %}" width = 200px, height="auto"></p>
 {% endif %}
+
 {{ post.text }}
 <p><i>{{ post.created_at }}</i></p>
+<div class="bt-actions">
+    <div class="bt-edit-post">
+        <a href="{% url 'blog:update_post' pk=post.id %}">
+            <button type="button">Редактировать</button>
+        </a>
+    </div>
+    <div class="bt-del-post">
+        <a href="{% url 'blog:delete_post' pk=post.id %}">
+            <button type="button">Удалить</button>
+        </a>
+    </div>
+</div>
 
 {% endblock content %}
