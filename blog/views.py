@@ -49,13 +49,13 @@ def update_post(request, pk):
             post.image = post_form.cleaned_data['image']
             post.save()
             return redirect('blog:read_post', pk=post.id)
-        else:
-            post_form = PostForm(initial = {
-                "title": post.title,
-                "author": post.author,
-                "text": post.text
-            })
-            return render(request, template_name="blog/post_edit.html", context = {"form": post_form})
+    else:
+        post_form = PostForm(initial = {
+            "title": post.title,
+            "author": post.author,
+            "text": post.text
+        })
+        return render(request, template_name="blog/post_edit.html", context = {"form": post_form})
 
 def delete_post(request, pk):
     # post = Post.objects.get(pk=pk)
