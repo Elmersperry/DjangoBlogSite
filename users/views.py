@@ -1,6 +1,11 @@
-from django.shortcuts import render
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import logout, login, authenticate
+from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from .forms import RegistrationForm, NewRegistrationForm
+from django.core.exceptions import PermissionDenied
+from django.contrib.auth.models import User
+from BlogSite.settings import LOGIN_REDIRECT_URL
+from django.contrib.auth.decorators import login_required
 
 def register(request):
     if request.method == "POST":
@@ -16,10 +21,27 @@ def register(request):
     return render(request, template_name="users/registration.html", context=context)
 
 def log_in(request):
-    pass
+    form = AuthenticationForm(request, request.POST)
+    if form.is_valid():
+        username = form.cleaned_data['username']
+        password = form.cleaned_data['password']
+        user = authenticate(username=username, password=password)
+        if user:
+            login(request, user)
+            url = request.GET.get('next', LOGIN_REDIRECT_URL)
+            return redirect(url)
+    context = {'form': form}
+    return render(request, template_name='users/login.html', context=context)
 
+# @login_required
 def log_out(request):
-    pass
+    logout(request)
+    return redirect('blog:index')
 
+# @login_required
 def user_profile(request, pk):
-    pass
+    user = get_object_or_404(User, pk=pk)
+    if request.user != user:
+        raise PermissionDenied()
+    context = {'user': user, 'title': 'Информация о пользователе'}
+    return render(request, template_name='usesr/proifile.html', context=context)
