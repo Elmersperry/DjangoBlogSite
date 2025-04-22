@@ -3,18 +3,27 @@ from django.http import HttpResponse
 from .models import Post
 from .forms import PostForm
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator
 # Create your views here.
 
 def index(request):
-    # Получение всех постов (select * from blog_post)
-    posts = Post.objects.all()
-    context = {'title': 'Главная страница', 'posts': posts}
+    # Получение всех постов, отсортированных по дате публикации (select * from blog_post order by created_at DESC)
+    posts = Post.objects.all().order_by('-created_at')
+    count_posts = Post.objects.count()
+    # Показываем по три поста на странице
+    per_page = 3
+    paginator = Paginator(posts, per_page)
+    # Получаем номер страницы из URL
+    page_number = request.GET.get('page')
+    # Получаем объекты для текущей страницы
+    page_obj = paginator.get_page(page_number)
+    context = {'title': 'Главная страница', 'page_obj': page_obj, 'count_posts': count_posts}
     return render(request, template_name='blog/index.html', context=context)
 
 def about(request):
-    # context = {'title': 'Главная страница'}
-    # return render(request, template_name='blog/about.html', context=context)
-    return HttpResponse('<h2>О сайте</h2>')
+    count_posts = Post.objects.count()
+    context = {'title': 'О сайте', 'count_posts': count_posts}
+    return render(request, template_name='blog/about.html', context=context)
 
 def add_post(request):
     if request.method == "GET":

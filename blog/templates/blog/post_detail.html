@@ -15,6 +15,7 @@
 
 {{ post.text }}
 <p><i>{{ post.created_at }}</i></p>
+{% if user == post.author %}
 <div class="bt-actions">
     <div class="bt-edit-post">
         <a href="{% url 'blog:update_post' pk=post.id %}">
@@ -26,6 +27,7 @@
             <button type="button">Удалить</button>
         </a>
     </div>
+{% endif %}
 </div>
 
 {% endblock content %}

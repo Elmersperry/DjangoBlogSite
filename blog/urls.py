@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path, include
 from blog.views import index, about, add_post, read_post, update_post, delete_post
 
 app_name = 'blog'
@@ -9,4 +9,5 @@ urlpatterns = [
     path('post/<slug:slug>/', read_post, name='read_post'),
     path('post/', add_post, name='add_post'),
     path('', index, name='index'),
+    # path('users/,', include('users.urls')),
 ]
