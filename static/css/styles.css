@@ -1,3 +1,22 @@
 body {
     font-family: "Poppins"
 }
+.sidebar-space {
+    /* position: absolute; */
+    /* position: fixed; */
+    /* justify-content: right; */
+    /* display: block; */
+    float: right;
+    height: 100vh;
+    width: 20%;
+    margin: 0px;
+    padding: 0px;
+    text-align: center;
+    background-color: #FF0000;
+}
+.post-list {
+    text-align: center;
+}
+#index-title {
+    text-align: center
+}
