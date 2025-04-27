@@ -1,22 +1,60 @@
-body {
-    font-family: "Poppins"
-}
 .sidebar-space {
-    /* position: absolute; */
-    /* position: fixed; */
-    /* justify-content: right; */
-    /* display: block; */
     float: right;
     height: 100vh;
-    width: 20%;
+    width: 10%;
     margin: 0px;
+    padding: 0px;
+    text-align: center;
+    background-color: #0000FF;
+}
+.sidebar-space-2 {
+    float: left;
+    height: 100vh;
+    width: 10%;
+    margin: 0px;
+    padding: 0px;
+    text-align: center;
+    background-color: #0000FF;
+}
+.sidebar-space-3 {
+    height: 50%;
+    width: 100vh;
+    margin: 20px;
     padding: 0px;
     text-align: center;
     background-color: #FF0000;
 }
 .post-list {
-    text-align: center;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
 }
 #index-title {
-    text-align: center
+    text-align: center;
+}
+.my-nav {
+    padding: 30px;
+    text-align: center;
+    height: 30%;
+    background-color: #E0E0E0;
+}
+.nav-link {
+    text-decoration: none;
+    color: #000000;
+    border: 1px solid black;
+    padding: 10px 30px 10px 30px;
+    background-color: #C0C0C0;
+}
+.nav-link:hover {
+    color: #0000FF;
+    }
+.nav-link:visited {
+    color: #4C0099;
+}
+.paginatio {
+    padding: 30px;
+    text-align: center;
+    height: 30%;
+    background-color: #000000;
 }

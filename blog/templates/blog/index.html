@@ -2,24 +2,43 @@
 {% load static %}
 
 {% block content %}
-<img src="{% static 'img/blog.jpg' %}" width = 200px, height="auto">
+<!--<img src="{% static 'img/blog.jpg' %}" width = 200px, height="auto">-->
 <h1 id="index-title">Главная страница</h1>
 
 <div class="post-list">
-{% for post in page_obj %}
-    <div class="post-author"><h3><b>{{ post.author }}</b></h3></div>
-    <div class="post_image">
-    {% if post.image %}
-        <p><img src="{{ post.image.url }}" width="150px" height="auto"></p>
-    {% else %}
-        <p><img src="{% static 'img/no_image.jpeg' %}" width = 200px, height="auto"></p>
-    {% endif %}
-    </div>
-    <div class="post-title>"><h4><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h4></div>
-    <div class="post-text"><p>{{ post.text }}</p></div>
-    <div class="post-created-at"><p><i>{{ post.created_at }}</i></p></div>
-{% endfor %}
-</div>
+<!--    <div class="ind-block">-->
+        {% for post in page_obj %}
+            <div class="post-author"><h3><b>{{ post.author }}</b></h3></div>
+            <div class="post_image">
+            {% if post.image %}
+                <p><img src="{{ post.image.url }}" width="150px" height="auto"></p>
+            {% else %}
+                <p><img src="{% static 'img/no_image.jpeg' %}" width = 200px, height="auto"></p>
+            {% endif %}
+            </div>
+            <div class="post-title>"><h4><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h4></div>
+            <div class="post-text"><p>{{ post.text }}</p></div>
+            <div class="post-created-at"><p><i>{{ post.created_at }}</i></p></div>
+        {% endfor %}
+<!--    </div>    -->
+<!--</div>-->
+<!--<div class="pagination">-->
+<!--    <span class="step-links">-->
+<!--        {% if page_obj.has_previous %}-->
+<!--            <a href="?page=1">&laquo;Первая</a>-->
+<!--            <a href="?page={{ page_obj.previous_page_number }}">Предыдущая</a>-->
+<!--        {% endif %}-->
+<!--        <span class="current">-->
+<!--            Страница {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}-->
+<!--        </span>-->
+<!--        {% if page_obj.has_next %}-->
+<!--            <a href="?page={{ page_obj.next_page_number }}">Следующая</a>-->
+<!--            <a href="?page={{ page_obj.paginator.num_pages }}">Последняя&raquo;</a>-->
+<!--        {% endif %}-->
+<!--    </span>-->
+<!--</div>-->
+<footer>
+<sidebar class="sidebar-space-3">
 <div class="pagination">
     <span class="step-links">
         {% if page_obj.has_previous %}
@@ -35,5 +54,7 @@
         {% endif %}
     </span>
 </div>
+</sidebar>
+</footer>
 
 {% endblock content %}
