@@ -31,8 +31,12 @@
     /* flex-wrap: wrap; */
     justify-content: space-evenly;
 }
+.post-author{
+    color: red;
+}
 #index-title {
     text-align: center;
+    border: 1px solid black;
 }
 .my-nav {
     padding: 30px;
