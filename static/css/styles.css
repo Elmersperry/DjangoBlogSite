@@ -41,6 +41,7 @@ body {
 }
 
 #index-title {
+    background-color: #C0C0C0;
     text-align: center;
     border: 1px solid black;
 }
@@ -74,7 +75,7 @@ body {
     padding: 30px;
     text-align: center;
     height: 30%;
-    background-color: #000000;
+    background-color: #C0C0C0;
 }
 
 .filler {
@@ -137,4 +138,13 @@ body {
 
 .single-posting li {
     width: 50%;
+}
+
+.generic-form {
+    margin: 10px;
+    border: 1px solid black;
+    padding: 30px;
+    height: 30%;
+    background-color: #C0C0C0;
+    width: 40%;
 }

@@ -1,4 +1,5 @@
 {% extends 'blog/base.html' %}
+{% load static %}
 
 {% block content %}
 
@@ -7,7 +8,7 @@
 <div>Имя - {{ user.first_name }}</div>
 <div>Фамилия - {{ user.last_name }}</div>
 <div>Электронная почта - {{ user.email }}</div>
-<div>Дата регистрации: {{ user.date_joined }}</div>
+<div >Дата регистрации: {{ user.date_joined }}</div>
 <a href="{% url 'users:change_password' %}">
     <button type="button">Сменить пароль</button>
 </a>

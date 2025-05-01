@@ -2,7 +2,7 @@
 
 {% block content %}
 <h2>Добавить новый пост</h2>
-<form action="" method="post">
+<form class="generic-form" action="" method="post">
     {% csrf_token %}
     {{ form.as_p }}
     <button type="submit">Добавить пост</button>
