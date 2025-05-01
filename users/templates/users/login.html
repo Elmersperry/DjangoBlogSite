@@ -6,8 +6,8 @@
 <form method="post">
     {% csrf_token %}
 <!--    {{ form.as_p }}-->
-    <p>Имя пользователя: {{ form.username }}</p>
-    <p>Пароль: {{ form.password }}</p>
+    <p class="generic-element">Имя пользователя: {{ form.username }}</p>
+    <p class="generic-element">Пароль: {{ form.password }}</p>
     <button type="submit">Войти</button>
 </form>
 

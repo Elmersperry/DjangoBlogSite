@@ -35,7 +35,7 @@ body {
 
 .post-list {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     /* flex-wrap: wrap; */
     justify-content: space-evenly;
 }
@@ -87,6 +87,7 @@ body {
     border: 1px solid black;
     padding: 10px 30px 10px 30px;
     background-color: #C0C0C0;
+    width: 50%;
 }
 
 .post-author {
@@ -131,6 +132,7 @@ body {
 
 .single-posting {
     list-style-type: none;
+    width: 30%;
 }
 
 .single-posting li {
