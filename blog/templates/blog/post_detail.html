@@ -2,10 +2,10 @@
 {% load static %}
 {% block content %}
 <head><link rel="stylesheet" href="{% static 'css/styles.css' %}"></head>
-<h3>Информация о посте № {{ post.pk }}</h3>
+<h3 class="generic-element">Информация о посте № {{ post.pk }}</h3>
 <hr>
-<b>{{ post.author }}</b>
-<hr4>{{ post.title }}</hr4>
+<b class="generic-element">{{ post.author }}</b>
+<hr4 class="generic-element">{{ post.title }}</hr4>
 
 {% if post.image %}
     <p><img src="{{ post.image.url }}" width="150px" height="auto"></p>
@@ -14,17 +14,17 @@
 {% endif %}
 
 {{ post.text }}
-<p><i>{{ post.created_at }}</i></p>
+<p><i class="generic-element">{{ post.created_at }}</i></p>
 {% if user == post.author %}
 <div class="bt-actions">
     <div class="bt-edit-post">
         <a href="{% url 'blog:update_post' pk=post.id %}">
-            <button type="button">Редактировать</button>
+            <button class="generic-element" type="button">Редактировать</button>
         </a>
     </div>
     <div class="bt-del-post">
         <a href="{% url 'blog:delete_post' pk=post.id %}">
-            <button type="button">Удалить</button>
+            <button class="generic-element" type="button">Удалить</button>
         </a>
     </div>
 {% endif %}
