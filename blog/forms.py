@@ -12,9 +12,9 @@ class PostForm(forms.ModelForm):
     # Дополняем конструктор родительского класса
     def __init__(self, *args, **kwargs):
         # получаем author из именованных вргументов (его передали во views)
-        author = kwargs.pop('author')
+        author = kwargs.pop('author', None)
         # вызывем конгструктор родительского класса
-        super().__init__(*args, **kwargs)
+        super(PostForm, self).__init__(*args, **kwargs)
         # устанавливаем начальное значение поля author
         self.fields['author'].initial = author
         # отключаем видимость этого поля в форме

@@ -25,10 +25,12 @@ def about(request):
     context = {'title': 'О сайте', 'count_posts': count_posts}
     return render(request, template_name='blog/about.html', context=context)
 
+@login_required
 def add_post(request):
     if request.method == "GET":
         post_form = PostForm(author=request.user)
-        context = {'form': post_form}
+        context = {'form': post_form,
+                   'title': 'Добавление поста'}
         return render(request, template_name='blog/post_add.html', context=context)
 
     if request.method == "POST":
@@ -51,10 +53,11 @@ def read_post(request, slug):
     context = {"title": "Информация о посте", "post": post}
     return render(request, template_name="blog/post_detail.html", context=context)
 
+@login_required()
 def update_post(request, pk):
     post = Post.objects.get(pk=pk)
     if request.method == "POST":
-        post_form = PostForm(data = request.POST, files = request.FILES)
+        post_form = PostForm(data = request.POST, files = request.FILES, author=request.user)
         if post_form.is_valid():
             post.title = post_form.cleaned_data['title']
             post.text = post_form.cleaned_data['text']
@@ -70,6 +73,7 @@ def update_post(request, pk):
         })
         return render(request, template_name="blog/post_edit.html", context = {"form": post_form})
 
+@login_required
 def delete_post(request, pk):
     # post = Post.objects.get(pk=pk)
     post = get_object_or_404(Post, pk=pk)
