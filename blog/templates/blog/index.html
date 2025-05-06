@@ -3,12 +3,18 @@
 
 {% block content %}
 <!--<img src="{% static 'img/blog.jpg' %}" width = 200px, height="auto">-->
+<div>
+    <form class="search-form" action="" method="get">
+        <input type="search" name="query">
+        <button type="submit">Поиск</button>
+    </form>
+</div>
 <h1 id="index-title">Посты</h1>
 <div class="post-list">
         {% for post in page_obj %}
             <ul class="single-posting">
                 <li class="post-title"><h3><a class="post-title" href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3></li>
-                <li class="post-author"><h3><b>{{ post.author }}</b></h3></li>
+                <li class="post-author"><h3><a href="{% url 'blog:user_posts' user_id=post.author.pk %}">{{ post.author }}</a></h3></li>
                 <li class="post-image">
                 {% if post.image %}
                     <p><img src="{{ post.image.url }}" width="150px" height="auto"></p>

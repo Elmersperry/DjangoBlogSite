@@ -4,6 +4,7 @@ from .models import Post
 from .forms import PostForm
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
+from django.contrib.auth.models import User
 # Create your views here.
 
 def index(request):
@@ -91,3 +92,16 @@ def forbidden(request, exception):
 
 def server_error(request):
     return render(request, template_name="blog/500.html", context = {"title": "500"})
+
+def user_posts(request, user_id):
+    user = get_object_or_404(User, pk=user_id)
+    # posts = user.posts.all()
+    posts = Post.objects.filter(author=user).select_related('author')
+    context = {'user': user, "posts": posts}
+    return render(request, template_name='blog/user_posts.html', context=context)
+
+@login_required
+def user_info(request, user_id):
+    user = get_object_or_404(User, pk=user_id)
+    context = {'user': user}
+    return render(request, template_name='blog/user_info.html', context=context)
