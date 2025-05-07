@@ -21,19 +21,30 @@
 
 {{ post.text }}
 <p><i class="generic-element">{{ post.created_at }}</i></p>
+
 {% if user == post.author %}
-<div class="bt-actions">
-    <div class="bt-edit-post">
-        <a href="{% url 'blog:update_post' pk=post.id %}">
-            <button class="generic-element" type="button">Редактировать</button>
-        </a>
-    </div>
-    <div class="bt-del-post">
-        <a href="{% url 'blog:delete_post' pk=post.id %}">
-            <button class="generic-element" type="button">Удалить</button>
-        </a>
+    <div class="bt-actions">
+        <div class="bt-edit-post">
+            <a href="{% url 'blog:update_post' pk=post.id %}">
+                <button class="generic-element" type="button">Редактировать</button>
+            </a>
+        </div>
+        <div class="bt-del-post">
+            <a href="{% url 'blog:delete_post' pk=post.id %}">
+                <button class="generic-element" type="button">Удалить</button>
+            </a>
+        </div>
     </div>
 {% endif %}
-</div>
+
+{% if user.is_superuser %}
+    <div class="bt-actions">
+        <div class="bt-del-post">
+            <a href="{% url 'blog:delete_post' pk=post.id %}">
+                <button class="generic-element" type="button">Удалить</button>
+            </a>
+        </div>
+    </div>
+{% endif %}
 
 {% endblock content %}

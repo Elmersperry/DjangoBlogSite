@@ -55,7 +55,7 @@ def change_password(request):
         if form.is_valid():
             old_password = form.cleaned_data["old_password"]
             if not request.user.check_password(old_password):
-                messages.error(request, "Старый пароль не уверен")
+                messages.error(request, "Старый пароль неверный")
             else:
                 user = form.save()
                 update_session_auth_hash(request, user)
