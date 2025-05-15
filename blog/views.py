@@ -1,10 +1,11 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from .models import Post
-from .forms import PostForm
+from .forms import PostForm, FilterForm
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.contrib.auth.models import User
+from django.db.models import Q
 # Create your views here.
 
 def index(request):
@@ -18,7 +19,11 @@ def index(request):
     page_number = request.GET.get('page')
     # Получаем объекты для текущей страницы
     page_obj = paginator.get_page(page_number)
-    context = {'title': 'Главная страница', 'page_obj': page_obj, 'count_posts': count_posts}
+    filter_form = FilterForm()
+    context = {'title': 'Главная страница',
+               'page_obj': page_obj,
+               'count_posts': count_posts,
+               'filter_form': filter_form}
     return render(request, template_name='blog/index.html', context=context)
 
 def about(request):
@@ -105,3 +110,36 @@ def user_info(request, user_id):
     user = get_object_or_404(User, pk=user_id)
     context = {'user': user}
     return render(request, template_name='blog/user_info.html', context=context)
+
+def search_post(request):
+    query = request.GET.get('query')
+    query_text = Q(title__icontains=query) | Q(text__icontains=query)
+    results = Post.objects.filter(query_text)
+    per_page = 3
+    paginator = Paginator(results, per_page)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    count_posts = results.count()
+    context = {'title': 'Главная страница', 'page_obj': page_obj, 'count_posts': count_posts}
+    return render(request, template_name='blog/index.html', context=context)
+
+def filter_post(request):
+    author_id = request.GET.get('author')
+    if not author_id:
+        results = Post.objects.all()
+    else:
+        author = User.objects.get(pk=author_id)
+        # created_at = request.GET.get('created_at')
+        query_text = Q(author__exact=author)
+        results = Post.objects.filter(query_text)
+    per_page = 3
+    paginator = Paginator(results, per_page)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    count_posts = results.count()
+    filter_form = FilterForm()
+    context = {'title': 'Главная страница',
+               'page_obj': page_obj,
+               'count_posts': count_posts,
+               'filter_form': filter_form}
+    return render(request, template_name='blog/index.html', context=context)

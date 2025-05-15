@@ -1,14 +1,24 @@
 {% extends 'blog/base.html' %}
 {% load static %}
+{% load custom_tags %}
 
 {% block content %}
 <!--<img src="{% static 'img/blog.jpg' %}" width = 200px, height="auto">-->
 <div>
-    <form class="search-form" action="" method="get">
+    <form class="search-form" action="{% url 'blog:search_post' %}" method="get">
         <input type="search" name="query">
         <button type="submit">Поиск</button>
     </form>
 </div>
+<div>
+    <form action="{% url 'blog:filter_post' %}" method="get" style="display: flex; justify-content: end; margin-right: 50px">
+        {{ filter_form.as_p }}
+        <button type="submit">Фильтровать</button>
+    </form>
+</div>
+{% if page_obj|length == 0 %}
+<h2>По вашему запросу не найдено ни одного поста!</h2>
+{% else %}
 <h1 id="index-title">Посты</h1>
 <div class="post-list">
         {% for post in page_obj %}
@@ -52,9 +62,11 @@
             Страница {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}
         </span>
         {% if page_obj.has_next %}
-            <a href="?page={{ page_obj.next_page_number }}">Следующая</a>
+<!--            <a href="?page={{ page_obj.next_page_number }}">Следующая</a>-->
+            <a href="?{% url_replace request 'page' page_obj.next_page_number %}">Следующая</a>
             <a href="?page={{ page_obj.paginator.num_pages }}">Последняя&raquo;</a>
         {% endif %}
     </span>
 </div>
+{% endif %}
 {% endblock content %}
